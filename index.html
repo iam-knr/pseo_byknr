@@ -3,157 +3,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSEO PRO by KNR — Programmatic SEO Plugin for WordPress</title>
+<title>PSEO PRO — Programmatic SEO Plugin for WordPress by KNR</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg:#0a0a0a; --bg2:#111111; --bg3:#181818; --border:#1e1e1e;
-    --accent:#8b0000; --accent2:#ffffff; --green:#22c55e; --red:#ef4444;
-    --yellow:#eab308; --cyan:#06b6d4; --text:#e5e5e5; --muted:#777777; --white:#ffffff;
-  }
-  html { scroll-behavior: smooth; }
-  body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:16px; line-height:1.7; overflow-x:hidden; }
-  ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Press+Start+2P&display=swap');
 
-  nav { position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px; }
-  .nav-logo { font-weight:800;font-size:1.15rem;background:linear-gradient(135deg,#ffffff,#ff4422);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
-  .nav-links { display:flex;gap:2rem;list-style:none; }
-  .nav-links a { color:var(--muted);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s; }
-  .nav-links a:hover { color:var(--white); }
-  .nav-cta { background:var(--accent);color:#fff;border:none;padding:0.5rem 1.3rem;border-radius:7px;font-weight:700;font-size:0.88rem;cursor:pointer;text-decoration:none;transition:background 0.2s;letter-spacing:0.3px; }
-  .nav-cta:hover { background:var(--accent2); }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* HERO */
-  .hero { min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden; }
-  .hero::before { content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(139,0,0,0.12) 0%,transparent 70%);pointer-events:none; }
-  .hero-badge { display:inline-flex;align-items:center;gap:0.5rem;background:rgba(139,0,0,0.15);border:1px solid rgba(204,34,0,0.35);color:#ff6644;padding:0.35rem 1rem;border-radius:100px;font-size:0.8rem;font-weight:600;letter-spacing:0.5px;margin-bottom:1.5rem; }
-  .hero-badge span { width:7px;height:7px;background:#ffffff;border-radius:50%;display:inline-block;animation:pulse 2s infinite; }
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
-  .hero h1 { font-size:clamp(2.5rem,6vw,5.2rem);font-weight:900;line-height:1.08;letter-spacing:-2.5px;color:var(--white);margin-bottom:1.2rem; }
-  .hero h1 span { background:linear-gradient(135deg,#ffffff 0%,#ff5533 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
-  .hero-sub { font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:620px;margin:0 auto 2.5rem;line-height:1.7; }
-  .hero-buttons { display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem; }
-  .btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:0.9rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 0 30px rgba(139,0,0,0.4);transition:all 0.2s; }
-  .btn-primary:hover { transform:translateY(-2px);box-shadow:0 0 50px rgba(204,34,0,0.5); }
-  .btn-secondary { background:transparent;color:var(--text);border:1px solid var(--border);padding:0.9rem 2rem;border-radius:10px;font-weight:600;font-size:1rem;text-decoration:none;transition:all 0.2s; }
-  .btn-secondary:hover { border-color:var(--accent2);color:#ff6644; }
-  .hero-stats { display:flex;gap:3rem;justify-content:center;flex-wrap:wrap; }
-  .stat { text-align:center; }
-  .stat-num { font-size:2rem;font-weight:800;color:var(--white);display:block; }
-  .stat-label { font-size:0.8rem;color:var(--muted);font-weight:500;letter-spacing:0.3px; }
+:root {
+  --bg: #0c0c0c;
+  --bg2: #111111;
+  --bg3: #161616;
+  --border: #1f1f1f;
+  --green: #00ff41;
+  --green2: #00cc33;
+  --amber: #ffb000;
+  --red: #ff2200;
+  --cyan: #00ffff;
+  --white: #e8e8e8;
+  --muted: #555555;
+  --scanline: rgba(0,255,65,0.03);
+}
 
-  /* SHARED */
-  section { padding:90px 5%; }
-  .section-label { display:inline-block;color:#cc4422;font-size:0.78rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:0.75rem; }
-  .section-title { font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--white);letter-spacing:-1px;line-height:1.2;margin-bottom:1rem; }
-  .divider { height:1px;background:var(--border);margin:0 5%; }
+html { scroll-behavior: smooth; }
 
-  /* WHAT */
-  .what-grid { display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center; }
-  .what-text p { color:var(--muted);margin-bottom:1.2rem;line-height:1.8; }
-  .what-visual { background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;font-family:'JetBrains Mono',monospace;font-size:0.82rem; }
-  .code-header { display:flex;gap:0.5rem;margin-bottom:1.5rem; }
-  .code-dot { width:12px;height:12px;border-radius:50%; }
-  .code-dot.r{background:#ef4444} .code-dot.y{background:#eab308} .code-dot.g{background:#22c55e}
-  .code-line { margin-bottom:0.4rem;color:var(--muted); }
-  .code-line .kw{color:#cc4422} .code-line .str{color:#22c55e} .code-line .fn{color:#06b6d4} .code-line .num{color:#eab308} .code-line .cm{color:#444}
-  .code-arrow { color:#cc4422;font-weight:700; }
+body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
 
-  /* HOW IT WORKS */
-  .alt-bg { background:var(--bg2); }
-  .steps { display:flex;flex-direction:column;max-width:860px;margin:0 auto; }
-  .step { display:grid;grid-template-columns:80px 1fr;gap:2rem;align-items:start;padding:2.5rem 0;border-bottom:1px solid var(--border); }
-  .step:last-child { border-bottom:none; }
-  .step-num { width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.15rem;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 0 22px rgba(139,0,0,0.45); }
-  .step-content h3 { font-size:1.15rem;font-weight:700;color:var(--white);margin-bottom:0.5rem; }
-  .step-content p { color:var(--muted);line-height:1.8; }
-  .step-content code,.guide-step code { background:var(--bg3);border:1px solid var(--border);padding:0.15rem 0.5rem;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:#cc4422; }
-  .step-tag { display:inline-block;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:var(--green);font-size:0.74rem;font-weight:600;padding:0.2rem 0.7rem;border-radius:100px;margin-top:0.75rem; }
+/* SCANLINE OVERLAY */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    var(--scanline) 2px,
+    var(--scanline) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
 
-  /* FEATURES */
-  .features-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.4rem; }
-  .feature-card { background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.7rem;transition:all 0.25s; }
-  .feature-card:hover { border-color:var(--accent2);transform:translateY(-3px);box-shadow:0 8px 30px rgba(139,0,0,0.2); }
-  .feature-icon { width:46px;height:46px;border-radius:11px;margin-bottom:1.1rem;display:flex;align-items:center;justify-content:center;font-size:1.3rem; }
-  .fi-r{background:rgba(139,0,0,0.18)} .fi-g{background:rgba(34,197,94,0.1)} .fi-c{background:rgba(6,182,212,0.1)} .fi-y{background:rgba(234,179,8,0.1)}
-  .feature-card h3 { font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.45rem; }
-  .feature-card p { color:var(--muted);font-size:0.9rem;line-height:1.7; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green2); }
 
-  /* USE CASES */
-  .usecases-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem; }
-  .usecase-card { background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.4rem;transition:all 0.2s; }
-  .usecase-card:hover { border-color:var(--accent2); }
-  .usecase-emoji { font-size:1.7rem;margin-bottom:0.7rem;display:block; }
-  .usecase-card h4 { color:var(--white);font-weight:700;margin-bottom:0.3rem;font-size:0.93rem; }
-  .usecase-card p { color:var(--muted);font-size:0.82rem; }
-  .usecase-scale { color:#cc4422;font-size:0.77rem;font-weight:700;margin-top:0.5rem;display:block; }
+/* CURSOR BLINK */
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
+@keyframes scanin { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes flicker { 0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:0.85} 94%{opacity:1} 96%{opacity:0.9} 97%{opacity:1} }
 
-  /* COMPARISON */
-  .compare-table { width:100%;border-collapse:collapse;border-radius:14px;border:1px solid var(--border);overflow:hidden; }
-  .compare-table th,.compare-table td { padding:1rem 1.2rem;text-align:left;border-bottom:1px solid var(--border);font-size:0.88rem; }
-  .compare-table thead tr { background:var(--bg3); }
-  .compare-table thead th { color:var(--muted);font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.8px; }
-  .compare-table thead th.hl { color:#ff5533; }
-  .compare-table tbody tr:last-child td { border-bottom:none; }
-  .compare-table tbody tr:hover { background:rgba(255,255,255,0.015); }
-  .compare-table td { color:var(--text); }
-  .compare-table td.fn { color:var(--muted);font-weight:500; }
-  .compare-table td.pc { background:rgba(139,0,0,0.06); }
-  .tick{color:var(--green);font-size:1.05rem;font-weight:700} .cross{color:#555;font-size:1.05rem} .partial{color:var(--yellow);font-size:0.82rem;font-weight:600}
+.cursor { display:inline-block; width:10px; height:1.1em; background:var(--green); margin-left:2px; vertical-align:text-bottom; animation:blink 1s step-start infinite; }
 
-  /* SYNTAX */
-  .syntax-grid { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
-  .syntax-card { background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.4rem; }
-  .syntax-card .syn { font-family:'JetBrains Mono',monospace;color:#cc4422;font-size:0.93rem;font-weight:600;margin-bottom:0.5rem; }
-  .syntax-card p { color:var(--muted);font-size:0.87rem; }
-  .syntax-card .example { color:var(--green);font-size:0.77rem;font-family:'JetBrains Mono',monospace;margin-top:0.4rem; }
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(12,12,12,0.97);
+  border-bottom: 1px solid var(--green2);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4%; height: 56px;
+  box-shadow: 0 0 20px rgba(0,255,65,0.08);
+}
+.nav-logo {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  color: var(--green);
+  text-shadow: 0 0 10px rgba(0,255,65,0.6);
+  letter-spacing: 1px;
+}
+.nav-links { display:flex; gap:1.8rem; list-style:none; }
+.nav-links a {
+  color: var(--muted); text-decoration:none; font-size:0.82rem;
+  transition: color 0.15s;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.nav-links a::before { content: '> '; color: var(--green2); opacity: 0; transition: opacity 0.15s; }
+.nav-links a:hover { color: var(--green); }
+.nav-links a:hover::before { opacity:1; }
+.nav-cta {
+  background: transparent; color: var(--green);
+  border: 1px solid var(--green2);
+  padding: 0.4rem 1.1rem; font-family:'Share Tech Mono',monospace;
+  font-size: 0.8rem; cursor:pointer; text-decoration:none;
+  text-transform:uppercase; letter-spacing:1px;
+  transition: all 0.2s;
+  box-shadow: 0 0 8px rgba(0,255,65,0.15);
+}
+.nav-cta:hover { background:var(--green); color:#000; box-shadow:0 0 20px rgba(0,255,65,0.5); }
 
-  /* SCHEMA */
-  .schema-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem; }
-  .schema-card { background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.4rem; }
-  .schema-card h4 { color:var(--white);font-weight:700;margin-bottom:0.5rem;font-size:0.93rem; }
-  .schema-card p { color:var(--muted);font-size:0.82rem; }
-  .schema-cols { display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.75rem; }
-  .col-tag { background:var(--bg3);border:1px solid var(--border);color:#cc4422;font-size:0.73rem;font-family:'JetBrains Mono',monospace;padding:0.15rem 0.5rem;border-radius:4px; }
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: center;
+  padding: 80px 4% 60px; position: relative; overflow: hidden;
+  animation: flicker 8s infinite;
+}
+.hero::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0; bottom:0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0,255,65,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,204,51,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+.terminal-bar {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-bottom: none; padding: 0.5rem 1rem;
+  border-radius: 6px 6px 0 0; width: 100%; max-width: 780px;
+  margin-bottom: 0;
+}
+.t-dot { width:10px; height:10px; border-radius:50%; }
+.t-dot.r{background:#ff5f57} .t-dot.y{background:#ffbd2e} .t-dot.g{background:#28c840}
+.t-title { color:var(--muted); font-size:0.78rem; margin-left:0.5rem; }
+.terminal-body {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 0 0 6px 6px; padding: 2rem;
+  width: 100%; max-width: 780px; margin-bottom: 3rem;
+  box-shadow: 0 0 40px rgba(0,255,65,0.06);
+}
+.t-line { margin-bottom: 0.35rem; font-size: 0.88rem; animation: scanin 0.3s ease; }
+.t-prompt { color: var(--green2); }
+.t-cmd { color: var(--white); }
+.t-out { color: var(--muted); padding-left: 1.5rem; }
+.t-out.ok { color: var(--green); }
+.t-out.warn { color: var(--amber); }
+.t-out.err { color: var(--red); }
+.t-out.hi { color: var(--cyan); }
+.hero-heading {
+  font-family: 'VT323', monospace;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  color: var(--green);
+  line-height: 1;
+  letter-spacing: 2px;
+  text-shadow: 0 0 30px rgba(0,255,65,0.35);
+  margin-bottom: 0.5rem;
+}
+.hero-heading span { color: var(--amber); text-shadow: 0 0 30px rgba(255,176,0,0.4); }
+.hero-sub {
+  color: var(--muted); font-size: 0.92rem; max-width: 620px;
+  margin-bottom: 2.5rem; line-height: 1.8;
+}
+.hero-sub strong { color: var(--green); }
+.hero-buttons { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom: 3.5rem; }
+.btn-primary {
+  background: var(--green); color: #000; padding: 0.8rem 1.8rem;
+  font-family:'Share Tech Mono',monospace; font-weight:700; font-size:0.9rem;
+  text-decoration:none; text-transform:uppercase; letter-spacing:1px;
+  border:none; cursor:pointer; transition:all 0.2s;
+  box-shadow: 0 0 20px rgba(0,255,65,0.35);
+}
+.btn-primary:hover { background: var(--green2); box-shadow: 0 0 40px rgba(0,255,65,0.6); transform:translateY(-1px); }
+.btn-secondary {
+  background: transparent; color: var(--green);
+  border: 1px solid var(--green2); padding: 0.8rem 1.8rem;
+  font-family:'Share Tech Mono',monospace; font-size:0.9rem;
+  text-decoration:none; text-transform:uppercase; letter-spacing:1px;
+  transition:all 0.2s;
+}
+.btn-secondary:hover { border-color:var(--green); color:var(--amber); }
+.hero-stats { display:flex; gap:3rem; flex-wrap:wrap; }
+.stat-num {
+  font-family:'VT323',monospace; font-size:2.8rem; color:var(--green);
+  display:block; text-shadow:0 0 15px rgba(0,255,65,0.5); line-height:1;
+}
+.stat-label { font-size:0.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; }
 
-  /* GUIDE */
-  .guide-steps { display:flex;flex-direction:column;gap:1.4rem;max-width:780px;margin:0 auto; }
-  .guide-step { background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.8rem;display:grid;grid-template-columns:46px 1fr;gap:1.4rem;align-items:start;transition:border-color 0.2s; }
-  .guide-step:hover { border-color:var(--accent2); }
-  .guide-step-num { width:40px;height:40px;border-radius:9px;flex-shrink:0;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.95rem;color:#fff; }
-  .guide-step h3 { color:var(--white);font-size:1rem;font-weight:700;margin-bottom:0.45rem; }
-  .guide-step p { color:var(--muted);font-size:0.88rem;line-height:1.75; }
-  .guide-step ul { margin:0.7rem 0 0 1rem; }
-  .guide-step ul li { color:var(--muted);font-size:0.86rem;margin-bottom:0.35rem; }
-  .tip-box { background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.18);border-radius:8px;padding:0.7rem 1rem;margin-top:0.9rem;color:var(--cyan);font-size:0.82rem; }
-  .warn-box { background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.18);border-radius:8px;padding:0.7rem 1rem;margin-top:0.9rem;color:var(--yellow);font-size:0.82rem; }
+/* SHARED */
+section { padding: 80px 4%; }
+.section-label {
+  display:inline-block; color:var(--green2); font-size:0.75rem;
+  font-weight:700; letter-spacing:3px; text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.section-label::before { content:'// '; color:var(--muted); }
+.section-title {
+  font-family:'VT323',monospace; font-size:clamp(2rem,5vw,3.5rem);
+  color:var(--white); letter-spacing:2px; line-height:1.15; margin-bottom:1rem;
+  text-shadow: 0 0 15px rgba(232,232,232,0.15);
+}
+.divider { height:1px; background:var(--border); margin:0 4%; }
 
-  /* REQUIREMENTS */
-  .req-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem; }
-  .req-card { background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.4rem;text-align:center; }
-  .req-icon { font-size:1.9rem;margin-bottom:0.7rem;display:block; }
-  .req-card h4 { color:var(--white);font-weight:700;margin-bottom:0.25rem;font-size:0.93rem; }
-  .req-min { color:var(--muted);font-size:0.8rem; }
-  .req-rec { color:var(--green);font-size:0.8rem;font-weight:600; }
+/* ASCII BOXES */
+.ascii-box {
+  border: 1px solid var(--green2);
+  border-radius: 0;
+  position: relative;
+}
+.ascii-box::before {
+  content: attr(data-label);
+  position:absolute; top:-0.65rem; left:1rem;
+  background:var(--bg); padding:0 0.5rem;
+  font-size:0.72rem; color:var(--green2); letter-spacing:1px;
+}
 
-  /* FOOTER */
-  footer { background:var(--bg);border-top:1px solid var(--border);padding:4rem 5% 2rem;text-align:center; }
-  .footer-logo { font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#ffffff,#ff5533);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.75rem;display:block; }
-  .footer-sub { color:var(--muted);font-size:0.87rem;max-width:400px;margin:0 auto 2rem; }
-  .footer-links { display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem; }
-  .footer-links a { color:var(--muted);text-decoration:none;font-size:0.87rem;transition:color 0.2s; }
-  .footer-links a:hover { color:#ff5533; }
-  .footer-copy { color:#333;font-size:0.78rem;border-top:1px solid var(--border);padding-top:2rem; }
+/* WHAT */
+.what-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+.what-text p { color:var(--muted); margin-bottom:1.2rem; line-height:1.85; font-size:0.9rem; }
+.what-text strong { color:var(--green); }
+.code-block {
+  background:var(--bg2); border:1px solid var(--green2);
+  padding:1.5rem; font-size:0.82rem;
+  box-shadow: 0 0 25px rgba(0,255,65,0.07);
+}
+.code-header { display:flex; gap:0.5rem; margin-bottom:1.5rem; align-items:center; }
+.code-dot { width:10px; height:10px; border-radius:50%; }
+.code-dot.r{background:#ff5f57} .code-dot.y{background:#ffbd2e} .code-dot.g{background:#28c840}
+.code-fname { color:var(--muted); font-size:0.74rem; margin-left:0.5rem; }
+.code-line { margin-bottom:0.35rem; }
+.kw{color:var(--amber)} .str{color:var(--green)} .fn{color:var(--cyan)} .num{color:#ff6b6b} .cm{color:var(--muted)}
+.code-arrow { color:var(--green2); font-weight:700; }
 
-  @media(max-width:768px){ .what-grid,.syntax-grid{grid-template-columns:1fr} nav .nav-links{display:none} .compare-table{font-size:0.74rem} .compare-table th,.compare-table td{padding:0.7rem 0.6rem} }
+/* STEPS */
+.steps { display:flex; flex-direction:column; max-width:820px; margin:0 auto; }
+.step {
+  display:grid; grid-template-columns:60px 1fr; gap:1.5rem;
+  align-items:start; padding:2rem 0; border-bottom:1px solid var(--border);
+}
+.step:last-child { border-bottom:none; }
+.step-num {
+  width:46px; height:46px; border:2px solid var(--green2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Press Start 2P',monospace; font-size:0.7rem; color:var(--green);
+  flex-shrink:0; box-shadow:0 0 12px rgba(0,255,65,0.2);
+}
+.step-content h3 { color:var(--white); margin-bottom:0.5rem; font-size:0.95rem; }
+.step-content p { color:var(--muted); font-size:0.88rem; line-height:1.8; }
+.step-content code, .guide-step code {
+  background:var(--bg3); border:1px solid var(--border);
+  padding:0.1rem 0.45rem; font-family:'Share Tech Mono',monospace;
+  font-size:0.78rem; color:var(--amber);
+}
+.step-tag {
+  display:inline-block; border:1px solid rgba(0,255,65,0.2);
+  color:var(--green2); font-size:0.72rem; padding:0.2rem 0.7rem;
+  margin-top:0.75rem; letter-spacing:0.5px;
+}
+
+/* FEATURES */
+.features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1px; background:var(--border); }
+.feature-card {
+  background:var(--bg2); padding:1.6rem;
+  transition:all 0.2s; border:none;
+}
+.feature-card:hover {
+  background:var(--bg3);
+  box-shadow:inset 0 0 0 1px var(--green2), 0 0 20px rgba(0,255,65,0.08);
+}
+.feature-icon { font-size:1.3rem; margin-bottom:0.9rem; display:block; }
+.feature-card h3 { color:var(--white); font-size:0.88rem; margin-bottom:0.4rem; text-transform:uppercase; letter-spacing:0.5px; }
+.feature-card p { color:var(--muted); font-size:0.84rem; line-height:1.7; }
+
+/* USE CASES */
+.usecases-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px; background:var(--border); }
+.usecase-card {
+  background:var(--bg2); padding:1.3rem; transition:all 0.2s;
+}
+.usecase-card:hover { background:rgba(0,255,65,0.03); }
+.usecase-emoji { font-size:1.5rem; margin-bottom:0.6rem; display:block; }
+.usecase-card h4 { color:var(--white); font-weight:700; margin-bottom:0.25rem; font-size:0.85rem; text-transform:uppercase; }
+.usecase-card p { color:var(--muted); font-size:0.8rem; }
+.usecase-scale { color:var(--green2); font-size:0.74rem; margin-top:0.5rem; display:block; }
+
+/* COMPARISON TABLE */
+.compare-table { width:100%; border-collapse:collapse; border:1px solid var(--green2); }
+.compare-table th, .compare-table td { padding:0.75rem 1rem; text-align:left; border-bottom:1px solid var(--border); font-size:0.83rem; border-right:1px solid var(--border); }
+.compare-table thead tr { background:var(--bg3); }
+.compare-table thead th { color:var(--muted); font-size:0.72rem; text-transform:uppercase; letter-spacing:1px; }
+.compare-table thead th.hl { color:var(--green); }
+.compare-table tbody tr:hover { background:rgba(0,255,65,0.025); }
+.compare-table td { color:var(--muted); }
+.compare-table td.fn { color:var(--white); }
+.compare-table td.pc { background:rgba(0,255,65,0.04); }
+.tick{color:var(--green);font-weight:700} .cross{color:#333} .partial{color:var(--amber);font-size:0.78rem}
+
+/* SYNTAX */
+.syntax-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); }
+.syntax-card { background:var(--bg2); padding:1.4rem; }
+.syntax-card .syn { font-family:'Share Tech Mono',monospace; color:var(--amber); font-size:0.93rem; margin-bottom:0.5rem; }
+.syntax-card p { color:var(--muted); font-size:0.85rem; }
+.syntax-card .example { color:var(--green); font-size:0.77rem; margin-top:0.4rem; }
+
+/* SCHEMA */
+.schema-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px; background:var(--border); }
+.schema-card { background:var(--bg2); padding:1.4rem; }
+.schema-card h4 { color:var(--white); font-weight:700; margin-bottom:0.4rem; font-size:0.88rem; text-transform:uppercase; letter-spacing:0.5px; }
+.schema-card p { color:var(--muted); font-size:0.82rem; }
+.schema-cols { display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.7rem; }
+.col-tag { background:var(--bg3); border:1px solid var(--border); color:var(--amber); font-size:0.72rem; font-family:'Share Tech Mono',monospace; padding:0.1rem 0.5rem; }
+
+/* GUIDE */
+.guide-steps { display:flex; flex-direction:column; gap:1px; max-width:800px; margin:0 auto; background:var(--border); }
+.guide-step {
+  background:var(--bg2); padding:1.8rem;
+  display:grid; grid-template-columns:46px 1fr; gap:1.2rem;
+  align-items:start; transition:background 0.2s;
+}
+.guide-step:hover { background:var(--bg3); }
+.guide-step-num {
+  width:38px; height:38px; border:1px solid var(--green2);
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  font-family:'Press Start 2P',monospace; font-size:0.6rem; color:var(--green);
+}
+.guide-step h3 { color:var(--white); font-size:0.9rem; margin-bottom:0.4rem; text-transform:uppercase; letter-spacing:0.5px; }
+.guide-step p { color:var(--muted); font-size:0.86rem; line-height:1.75; }
+.guide-step ul { margin:0.7rem 0 0 1rem; }
+.guide-step ul li { color:var(--muted); font-size:0.84rem; margin-bottom:0.3rem; }
+.guide-step ul li::marker { color:var(--green2); }
+.tip-box { background:rgba(0,255,255,0.04); border-left:2px solid var(--cyan); padding:0.65rem 1rem; margin-top:0.9rem; color:var(--cyan); font-size:0.8rem; }
+.warn-box { background:rgba(255,176,0,0.04); border-left:2px solid var(--amber); padding:0.65rem 1rem; margin-top:0.9rem; color:var(--amber); font-size:0.8rem; }
+
+/* REQUIREMENTS */
+.req-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:1px; background:var(--border); }
+.req-card { background:var(--bg2); padding:1.4rem; text-align:center; }
+.req-icon { font-size:1.7rem; margin-bottom:0.6rem; display:block; }
+.req-card h4 { color:var(--white); font-weight:700; margin-bottom:0.2rem; font-size:0.88rem; text-transform:uppercase; }
+.req-min { color:var(--muted); font-size:0.78rem; }
+.req-rec { color:var(--green); font-size:0.78rem; font-weight:600; }
+
+/* SECTION ALT BG */
+.alt-bg { background:var(--bg2); }
+
+/* FOOTER */
+footer {
+  background:var(--bg);
+  border-top:1px solid var(--green2);
+  padding:4rem 4% 2rem; text-align:center;
+  box-shadow: 0 -10px 40px rgba(0,255,65,0.05);
+}
+.footer-logo {
+  font-family:'Press Start 2P',monospace; font-size:0.8rem;
+  color:var(--green); margin-bottom:1rem; display:block;
+  text-shadow:0 0 15px rgba(0,255,65,0.5);
+}
+.footer-sub { color:var(--muted); font-size:0.84rem; max-width:400px; margin:0 auto 2rem; }
+.footer-links { display:flex; gap:2rem; justify-content:center; flex-wrap:wrap; margin-bottom:2.5rem; }
+.footer-links a { color:var(--muted); text-decoration:none; font-size:0.83rem; text-transform:uppercase; letter-spacing:1px; transition:color 0.2s; }
+.footer-links a:hover { color:var(--green); }
+.footer-copy { color:#2a2a2a; font-size:0.76rem; border-top:1px solid var(--border); padding-top:1.5rem; }
+.footer-copy strong { color:var(--green2); }
+
+/* SECTION HEADER TERMINAL */
+.sec-header { display:flex; align-items:center; gap:0.7rem; margin-bottom:3rem; }
+.sec-header-center { text-align:center; display:block; margin-bottom:3rem; }
+.sec-prompt { color:var(--green2); font-size:0.88rem; }
+
+/* COMPARE NOTE */
+.compare-note {
+  margin-top:1.2rem; padding:1rem 1.3rem;
+  background:rgba(255,176,0,0.04); border-left:2px solid var(--amber);
+  font-size:0.82rem; color:var(--muted);
+}
+.compare-note strong { color:var(--amber); }
+
+@media(max-width:768px){
+  .what-grid,.syntax-grid{grid-template-columns:1fr}
+  nav .nav-links{display:none}
+  .compare-table{font-size:0.72rem}
+  .compare-table th,.compare-table td{padding:0.5rem 0.5rem}
+  .hero-heading{font-size:clamp(2.5rem,10vw,4rem)}
+}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">PSEO PRO by KNR</div>
+  <div class="nav-logo">PSEO_PRO:KNR</div>
   <ul class="nav-links">
     <li><a href="#what">About</a></li>
     <li><a href="#how">How It Works</a></li>
@@ -166,134 +390,149 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge"><span></span> WordPress Plugin · v2.0.1 · 100% Free &amp; Open Source</div>
-  <h1>Generate <span>10,000 Pages</span><br>in 30 Seconds</h1>
-  <p class="hero-sub">Programmatic SEO plugin for WordPress. Bulk-create SEO-optimised pages from CSV, Google Sheets, JSON or REST API — with built-in Schema, Meta Tags, XML Sitemap and WP-CLI.</p>
+  <div class="terminal-bar">
+    <div class="t-dot r"></div>
+    <div class="t-dot y"></div>
+    <div class="t-dot g"></div>
+    <span class="t-title">root@pseo-pro ~ bash</span>
+  </div>
+  <div class="terminal-body">
+    <div class="t-line"><span class="t-prompt">root@server:~$</span> <span class="t-cmd">wp pseo install --version=2.0.1</span></div>
+    <div class="t-line t-out ok">✔ PSEO PRO by KNR installed and activated.</div>
+    <div class="t-line"><span class="t-prompt">root@server:~$</span> <span class="t-cmd">wp pseo generate --id=1 --source=data.csv</span></div>
+    <div class="t-line t-out hi">→ Fetching data source... 1,000 rows loaded.</div>
+    <div class="t-line t-out hi">→ Template engine initialised. Processing rows...</div>
+    <div class="t-line t-out ok">✔ 1,000 pages generated in 4.2s. Sitemap updated.</div>
+    <div class="t-line"><span class="t-prompt">root@server:~$</span> <span class="t-cmd">wp pseo status</span></div>
+    <div class="t-line t-out">Projects: 300 &nbsp;|&nbsp; Total Pages: 12,450 &nbsp;|&nbsp; Orphans Cleaned: 82</div>
+    <div class="t-line t-out ok">Price paid: $0.00</div>
+    <div class="t-line"><span class="t-prompt">root@server:~$</span> <span class="cursor"></span></div>
+  </div>
+
+  <h1 class="hero-heading">GENERATE<br><span>10,000 PAGES</span><br>IN 30 SECONDS</h1>
+  <p class="hero-sub">Programmatic SEO plugin for WordPress. Bulk-create SEO-optimised pages from <strong>CSV</strong> — with built-in Schema, Meta Tags, XML Sitemap and WP-CLI. <strong>100% free. Open source.</strong></p>
   <div class="hero-buttons">
-    <a href="https://github.com/iam-knr/PSEO_PRO_knr" target="_blank" class="btn-primary">⭐ Get Started on GitHub</a>
+    <a href="https://github.com/iam-knr/PSEO_PRO_knr" target="_blank" class="btn-primary">⭐ Get on GitHub</a>
     <a href="#compare" class="btn-secondary">Compare vs Others →</a>
   </div>
   <div class="hero-stats">
     <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Unlimited Pages</span></div>
-    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Data Sources</span></div>
     <div class="stat"><span class="stat-num">6</span><span class="stat-label">Schema Types</span></div>
     <div class="stat"><span class="stat-num">$0</span><span class="stat-label">Forever Free</span></div>
+    <div class="stat"><span class="stat-num">GPL</span><span class="stat-label">Open Source</span></div>
   </div>
 </section>
 
 <!-- WHAT IS IT -->
+<div class="divider"></div>
 <section id="what">
   <div class="what-grid">
     <div class="what-text">
       <span class="section-label">About the Plugin</span>
-      <h2 class="section-title">What is PSEO PRO by KNR?</h2>
-      <p>PSEO PRO is an open-source WordPress plugin built for <strong style="color:var(--white)">SEO professionals, digital marketers, and agencies</strong> who need to create large volumes of highly targeted pages from structured data — without writing a single line of code.</p>
-      <p>You bring the data (a CSV, a Google Sheet, a JSON feed, or a REST API). You build one template page. PSEO PRO does the rest — replacing <code style="background:var(--bg2);border:1px solid var(--border);padding:0.1rem 0.4rem;border-radius:4px;font-family:monospace;color:#cc4422">{{placeholders}}</code> with your data to generate hundreds or thousands of unique, SEO-ready pages instantly.</p>
-      <p>Each generated page gets its own <strong style="color:var(--white)">title tag, meta description, canonical URL, robots tag,</strong> and <strong style="color:var(--white)">JSON-LD schema markup</strong> — all derived automatically from your data row.</p>
-      <p>Update your data source and PSEO PRO auto-regenerates only the changed rows, updates existing pages, and removes orphaned pages that no longer exist in the data.</p>
+      <h2 class="section-title">WHAT IS<br>PSEO PRO?</h2>
+      <p>PSEO PRO is an open-source WordPress plugin built for <strong>SEO professionals, digital marketers, and agencies</strong> who need to create large volumes of highly targeted pages from structured data — without writing a single line of code.</p>
+      <p>You bring the data (a CSV file). You build one template page. PSEO PRO does the rest — replacing <code style="background:var(--bg3);border:1px solid var(--border);padding:0.1rem 0.4rem;font-family:monospace;color:var(--amber)">{{placeholders}}</code> with your data to generate hundreds or thousands of unique, SEO-ready pages instantly.</p>
+      <p>Each generated page gets its own <strong>title tag, meta description, canonical URL, robots tag,</strong> and <strong>JSON-LD schema markup</strong> — all derived automatically from your data row.</p>
     </div>
-    <div class="what-visual">
+    <div class="code-block">
       <div class="code-header">
         <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
-        <span style="color:#333;font-size:0.76rem;margin-left:0.5rem">data.csv → 500 pages</span>
+        <span class="code-fname">data.csv → 500 pages</span>
       </div>
       <div class="code-line"><span class="cm">// Your CSV has 500 rows:</span></div>
       <div class="code-line"><span class="str">service</span>, <span class="str">city</span>, <span class="str">price</span></div>
       <div class="code-line"><span class="str">Plumbing</span>, <span class="str">Bangalore</span>, <span class="str">₹499</span></div>
       <div class="code-line"><span class="str">Plumbing</span>, <span class="str">Mumbai</span>, <span class="str">₹599</span></div>
       <div class="code-line"><span class="str">Electrician</span>, <span class="str">Delhi</span>, <span class="str">₹450</span></div>
-      <div class="code-line" style="color:#333">...</div><br>
+      <div class="code-line cm">...</div><br>
       <div class="code-line"><span class="cm">// Your template:</span></div>
       <div class="code-line"><span class="kw">Title:</span> <span class="str">"{{service}} in {{city}}"</span></div>
       <div class="code-line"><span class="kw">URL:</span> <span class="fn">/{{service}}/{{city}}/</span></div>
       <div class="code-line"><span class="kw">Body:</span> <span class="str">"Best {{service}} from ₹{{price}}"</span></div><br>
-      <div class="code-line"><span class="cm">// Click ⚡ Generate → Result:</span></div>
-      <div class="code-line"><span class="code-arrow">→</span> <span class="fn">/plumbing/bangalore/</span> <span class="num">✓</span></div>
-      <div class="code-line"><span class="code-arrow">→</span> <span class="fn">/plumbing/mumbai/</span> <span class="num">✓</span></div>
-      <div class="code-line"><span class="code-arrow">→</span> <span class="fn">/electrician/delhi/</span> <span class="num">✓</span></div>
-      <div class="code-line" style="color:#333">... 497 more pages ✓</div><br>
+      <div class="code-line"><span class="cm">// ⚡ Generate → Result:</span></div>
+      <div class="code-line"><span class="code-arrow">→</span> <span class="fn">/plumbing/bangalore/</span> <span class="str">✓</span></div>
+      <div class="code-line"><span class="code-arrow">→</span> <span class="fn">/plumbing/mumbai/</span> <span class="str">✓</span></div>
+      <div class="code-line"><span class="code-arrow">→</span> <span class="fn">/electrician/delhi/</span> <span class="str">✓</span></div>
+      <div class="code-line cm">... 497 more pages ✓</div><br>
       <div class="code-line" style="color:var(--green)">✅ 500 pages generated in 4.2s</div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- HOW IT WORKS -->
+<div class="divider"></div>
 <section id="how" class="alt-bg">
-  <div style="text-align:center;margin-bottom:3.5rem">
+  <div class="sec-header-center">
     <span class="section-label">Under the Hood</span>
-    <h2 class="section-title">How It Works</h2>
+    <h2 class="section-title">HOW IT WORKS</h2>
   </div>
   <div class="steps">
     <div class="step">
-      <div class="step-num">1</div>
+      <div class="step-num">01</div>
       <div class="step-content">
         <h3>📥 Data Fetch</h3>
-        <p>Connects to your data source — CSV URL, uploaded CSV, Google Sheet, JSON endpoint, or paginated REST API. Parses everything into a row-by-row array where each row becomes one WordPress page. No row limits, no timeouts with WP-CLI.</p>
-        <span class="step-tag">CSV · Google Sheets · JSON · REST API</span>
+        <p>Connects to your CSV upload. Parses everything into a row-by-row array where each row becomes one WordPress page. No row limits, no timeouts with WP-CLI.</p>
+        <span class="step-tag">CSV Upload</span>
       </div>
     </div>
     <div class="step">
-      <div class="step-num">2</div>
+      <div class="step-num">02</div>
       <div class="step-content">
         <h3>🔍 Row Hashing &amp; Smart Diff</h3>
-        <p>Each row is MD5-hashed and stored in <code>wp_pseo_data_rows</code>. On every sync, only rows whose hash has changed are re-processed. New rows create new pages. Changed rows update existing pages. Deleted rows trigger orphan detection — the corresponding WordPress page is removed automatically.</p>
+        <p>Each row is MD5-hashed and stored in <code>wp_pseo_data_rows</code>. On every sync, only rows whose hash has changed are re-processed. New rows create pages. Changed rows update pages. Deleted rows trigger orphan detection.</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-num">3</div>
+      <div class="step-num">03</div>
       <div class="step-content">
         <h3>🧩 Template Engine</h3>
-        <p>Your WordPress page is cloned per row. Every <code>{{placeholder}}</code> in the title, content, URL slug, meta title, meta description, and schema fields is replaced with that row's column value. Supports <code>{{raw:col}}</code> for HTML output, <code>{A|B|C}</code> spintax for variation, and <code>[if:col=val]...[/if]</code> conditional blocks.</p>
+        <p>Your WordPress page is cloned per row. Every <code>{{placeholder}}</code> in title, content, URL slug, meta title, meta description, and schema fields is replaced with that row's column value. Supports <code>{{raw:col}}</code>, <code>{A|B|C}</code> spintax, and <code>[if:col=val]...[/if]</code> conditional blocks.</p>
       </div>
     </div>
     <div class="step">
-      <div class="step-num">4</div>
+      <div class="step-num">04</div>
       <div class="step-content">
         <h3>🚀 Page Creation &amp; SEO Injection</h3>
-        <p>Pages are created via <code>wp_insert_post()</code>. The SEO class hooks into <code>wp_head</code> at priority 1 to inject the title tag, meta description, robots directive, canonical URL, and full JSON-LD schema — all specific to that row's data. Works alongside Yoast SEO and Rank Math without conflicts.</p>
+        <p>Pages are created via <code>wp_insert_post()</code>. The SEO class hooks into <code>wp_head</code> at priority 1 to inject title tag, meta description, robots directive, canonical URL, and full JSON-LD schema — specific to each row's data.</p>
         <span class="step-tag">JSON-LD Schema injected per page</span>
       </div>
     </div>
     <div class="step">
-      <div class="step-num">5</div>
+      <div class="step-num">05</div>
       <div class="step-content">
         <h3>🗺️ Sitemap &amp; Auto-Sync</h3>
-        <p>All generated pages are listed in a custom XML sitemap at <code>/pseo-sitemap.xml</code> ready to submit to Google Search Console. A WP Cron event (<code>pseo_cron_sync</code>) runs on your chosen schedule — hourly, daily, or weekly — re-fetching data and regenerating changed pages completely hands-free.</p>
+        <p>All generated pages are listed in a custom XML sitemap at <code>/pseo-sitemap.xml</code>. A WP Cron event runs on your chosen schedule — hourly, daily, or weekly — re-fetching data and regenerating changed pages completely hands-free.</p>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- FEATURES -->
+<div class="divider"></div>
 <section id="features">
-  <div style="text-align:center;margin-bottom:3rem">
+  <div class="sec-header-center">
     <span class="section-label">What You Get</span>
-    <h2 class="section-title">Everything Built In — For Free</h2>
+    <h2 class="section-title">EVERYTHING BUILT IN — FREE</h2>
   </div>
   <div class="features-grid">
-    <div class="feature-card"><div class="feature-icon fi-r">📊</div><h3>5 Data Sources</h3><p>CSV via URL, CSV server upload, Google Sheets, JSON endpoint, and paginated REST API with auth header support.</p></div>
-    <div class="feature-card"><div class="feature-icon fi-g">🧩</div><h3>Powerful Template Engine</h3><p>Placeholders, raw HTML output, spintax for content variation, and conditional blocks with full comparison operators.</p></div>
-    <div class="feature-card"><div class="feature-icon fi-c">🔍</div><h3>Full SEO Stack</h3><p>Custom title, meta description, robots, canonical URL, and JSON-LD schema per page — all auto-populated from your data.</p></div>
-    <div class="feature-card"><div class="feature-icon fi-y">♾️</div><h3>Unlimited Everything</h3><p>No limits on rows, pages, or projects. Run multiple campaigns simultaneously with different data sources and templates.</p></div>
-    <div class="feature-card"><div class="feature-icon fi-r">🔄</div><h3>Smart Auto-Sync</h3><p>Hourly/daily/weekly cron sync. Only changed rows re-processed. Orphan pages auto-deleted when data is removed.</p></div>
-    <div class="feature-card"><div class="feature-icon fi-g">🗺️</div><h3>Custom XML Sitemap</h3><p>Dedicated sitemap at /pseo-sitemap.xml listing all generated pages. Submit directly to Google Search Console.</p></div>
-    <div class="feature-card"><div class="feature-icon fi-c">⌨️</div><h3>WP-CLI Support</h3><p>Generate, delete, and list projects from terminal. Ideal for 10,000+ pages without PHP timeout issues.</p></div>
-    <div class="feature-card"><div class="feature-icon fi-y">🛡️</div><h3>Secure by Design</h3><p>Nonce-verified AJAX, capability checks, escaped outputs, sanitized inputs. Passes WordPress Plugin Check (PHPCS).</p></div>
-    <div class="feature-card"><div class="feature-icon fi-r">🔧</div><h3>Developer Friendly</h3><p>PSR-4 class autoloader, pseo_schema filter hook for custom schema, clean custom DB tables, zero plugin dependencies.</p></div>
+    <div class="feature-card"><span class="feature-icon">📊</span><h3>CSV Data Source</h3><p>Upload your CSV directly. Column headers become {{placeholder}} names automatically. No mapping needed.</p></div>
+    <div class="feature-card"><span class="feature-icon">🧩</span><h3>Powerful Template Engine</h3><p>Placeholders, raw HTML output, spintax for content variation, and conditional blocks with full comparison operators.</p></div>
+    <div class="feature-card"><span class="feature-icon">🔍</span><h3>Full SEO Stack</h3><p>Custom title, meta description, robots, canonical URL, and JSON-LD schema per page — auto-populated from your data.</p></div>
+    <div class="feature-card"><span class="feature-icon">♾️</span><h3>Unlimited Everything</h3><p>No limits on rows, pages, or projects. Run multiple campaigns simultaneously with different data and templates.</p></div>
+    <div class="feature-card"><span class="feature-icon">🔄</span><h3>Smart Auto-Sync</h3><p>Hourly/daily/weekly cron sync. Only changed rows re-processed. Orphan pages auto-deleted when data is removed.</p></div>
+    <div class="feature-card"><span class="feature-icon">🗺️</span><h3>Custom XML Sitemap</h3><p>Dedicated sitemap at /pseo-sitemap.xml listing all generated pages. Submit directly to Google Search Console.</p></div>
+    <div class="feature-card"><span class="feature-icon">⌨️</span><h3>WP-CLI Support</h3><p>Generate, delete, and list projects from terminal. Ideal for 10,000+ pages without PHP timeout issues.</p></div>
+    <div class="feature-card"><span class="feature-icon">🛡️</span><h3>Secure by Design</h3><p>Nonce-verified AJAX, capability checks, escaped outputs, sanitized inputs. Passes WordPress Plugin Check.</p></div>
+    <div class="feature-card"><span class="feature-icon">🔧</span><h3>Developer Friendly</h3><p>PSR-4 class autoloader, pseo_schema filter hook for custom schema, clean custom DB tables, zero plugin dependencies.</p></div>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- USE CASES -->
-<section>
-  <div style="text-align:center;margin-bottom:3rem">
+<div class="divider"></div>
+<section class="alt-bg">
+  <div class="sec-header-center">
     <span class="section-label">Real World Usage</span>
-    <h2 class="section-title">Built for Every Industry</h2>
+    <h2 class="section-title">BUILT FOR EVERY INDUSTRY</h2>
   </div>
   <div class="usecases-grid">
     <div class="usecase-card"><span class="usecase-emoji">🔧</span><h4>Home Services</h4><p>Plumbing / Electrician in {{city}}</p><span class="usecase-scale">→ 1,000+ pages</span></div>
@@ -307,179 +546,53 @@
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- COMPARISON -->
-<section id="compare" class="alt-bg">
-  <div style="text-align:center;margin-bottom:3rem">
+<div class="divider"></div>
+<section id="compare">
+  <div class="sec-header-center">
     <span class="section-label">vs The Competition</span>
-    <h2 class="section-title">Why PSEO PRO Wins</h2>
-    <p style="color:var(--muted);max-width:560px;margin:0.5rem auto 0;font-size:0.95rem">Compared against the most popular programmatic SEO plugins and tools for WordPress.</p>
+    <h2 class="section-title">WHY PSEO PRO WINS</h2>
+    <p style="color:var(--muted);max-width:520px;margin:0 auto 3rem;font-size:0.88rem">Compared against the most popular programmatic SEO plugins for WordPress.</p>
   </div>
   <div style="overflow-x:auto">
     <table class="compare-table">
       <thead>
         <tr>
-          <th style="min-width:180px">Feature</th>
-          <th class="hl" style="min-width:155px">PSEO PRO KNR ⚡</th>
+          <th style="min-width:170px">Feature</th>
+          <th class="hl" style="min-width:150px">PSEO PRO KNR ⚡</th>
           <th style="min-width:130px">MPG by ThemeIsle</th>
           <th style="min-width:120px">WP All Import</th>
-          <th style="min-width:130px">GeneratePress</th>
           <th style="min-width:130px">Thematic (SaaS)</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="fn">Price</td>
-          <td class="pc" style="color:var(--green);font-weight:700">100% Free</td>
-          <td>$99–$399/yr</td>
-          <td>$99/yr</td>
-          <td>$59/yr</td>
-          <td>$99–$299/mo</td>
-        </tr>
-        <tr>
-          <td class="fn">Free tier available</td>
-          <td class="pc"><span class="tick">✓</span> Full features</td>
-          <td><span class="partial">Limited free</span></td>
-          <td><span class="partial">Limited free</span></td>
-          <td><span class="partial">Theme only</span></td>
-          <td><span class="cross">✗</span></td>
-        </tr>
-        <tr>
-          <td class="fn">No-code setup</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="tick">✓</span></td>
-        </tr>
-        <tr>
-          <td class="fn">CSV source</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="tick">✓</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Google Sheets source</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span> PRO</td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="tick">✓</span></td>
-        </tr>
-        <tr>
-          <td class="fn">JSON / REST API source</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="partial">Paid add-on</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="tick">✓</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Built-in JSON-LD Schema</td>
-          <td class="pc"><span class="tick">✓</span> 6 types</td>
-          <td><span class="partial">Shortcode only</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="partial">Limited</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Auto XML Sitemap</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="tick">✓</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Row hash diff (smart update)</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Smart orphan deletion</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="partial">Manual</span></td>
-          <td><span class="partial">Partial</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="tick">✓</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Spintax support</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="partial">Basic</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Conditional blocks</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span> New</td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-        </tr>
-        <tr>
-          <td class="fn">WP-CLI support</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Auto-sync / Cron</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span> PRO</td>
-          <td><span class="partial">Manual</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="tick">✓</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Elementor / Divi / Gutenberg</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="partial">Partial</span></td>
-          <td><span class="cross">✗</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Data on your server</td>
-          <td class="pc"><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="tick">✓</span></td>
-          <td><span class="cross">✗ SaaS</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Open source</td>
-          <td class="pc"><span class="tick">✓</span> GPL-2.0</td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="cross">✗</span></td>
-          <td><span class="partial">Theme only</span></td>
-          <td><span class="cross">✗</span></td>
-        </tr>
+        <tr><td class="fn">Price</td><td class="pc" style="color:var(--green);font-weight:700">100% Free</td><td>$99–$399/yr</td><td>$99/yr</td><td>$99–$299/mo</td></tr>
+        <tr><td class="fn">No-code setup</td><td class="pc"><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td></tr>
+        <tr><td class="fn">CSV source</td><td class="pc"><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td></tr>
+        <tr><td class="fn">Built-in JSON-LD Schema</td><td class="pc"><span class="tick">✓</span> 6 types</td><td><span class="partial">Shortcode only</span></td><td><span class="cross">✗</span></td><td><span class="partial">Limited</span></td></tr>
+        <tr><td class="fn">Auto XML Sitemap</td><td class="pc"><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="tick">✓</span></td></tr>
+        <tr><td class="fn">Row hash diff</td><td class="pc"><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td class="fn">Smart orphan deletion</td><td class="pc"><span class="tick">✓</span></td><td><span class="partial">Manual</span></td><td><span class="partial">Partial</span></td><td><span class="tick">✓</span></td></tr>
+        <tr><td class="fn">Spintax support</td><td class="pc"><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">Basic</span></td></tr>
+        <tr><td class="fn">Conditional blocks</td><td class="pc"><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td class="fn">WP-CLI support</td><td class="pc"><span class="tick">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td class="fn">Auto-sync / Cron</td><td class="pc"><span class="tick">✓</span></td><td><span class="tick">✓</span> PRO</td><td><span class="partial">Manual</span></td><td><span class="tick">✓</span></td></tr>
+        <tr><td class="fn">Data on your server</td><td class="pc"><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="tick">✓</span></td><td><span class="cross">✗ SaaS</span></td></tr>
+        <tr><td class="fn">Open source</td><td class="pc"><span class="tick">✓</span> GPL-2.0</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
       </tbody>
     </table>
   </div>
-  <div style="margin-top:1.5rem;padding:1.2rem 1.5rem;background:rgba(139,0,0,0.08);border:1px solid rgba(204,34,0,0.2);border-radius:10px;font-size:0.85rem;color:var(--muted)">
-    <strong style="color:#ff5533">📌 MPG vs PSEO PRO:</strong> MPG (48,000+ downloads, by ThemeIsle) is the most popular pSEO plugin but costs $99–$399/yr and lacks WP-CLI, REST API support, and row-level hash diffing. PSEO PRO matches or exceeds MPG's core feature set at $0. MPG has an edge in pre-built city/app database templates and virtual page technology for extremely large sites.
+  <div class="compare-note">
+    <strong>📌 Note on MPG:</strong> MPG (48,000+ downloads by ThemeIsle) is the most popular pSEO plugin but costs $99–$399/yr and lacks WP-CLI and row-level hash diffing. PSEO PRO matches or exceeds MPG's core feature set at $0.
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- TEMPLATE SYNTAX -->
+<div class="divider"></div>
 <section>
-  <div style="text-align:center;margin-bottom:3rem">
+  <div class="sec-header-center">
     <span class="section-label">Template Engine</span>
-    <h2 class="section-title">Syntax Reference</h2>
+    <h2 class="section-title">SYNTAX REFERENCE</h2>
   </div>
   <div class="syntax-grid">
     <div class="syntax-card"><div class="syn">{{column}}</div><p>Inserts the HTML-escaped value of the CSV column named <em>column</em>.</p><div class="example">{{city}} → "Bangalore"</div></div>
@@ -491,67 +604,58 @@
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- SCHEMA -->
+<div class="divider"></div>
 <section id="schema" class="alt-bg">
-  <div style="text-align:center;margin-bottom:3rem">
+  <div class="sec-header-center">
     <span class="section-label">Schema Markup</span>
-    <h2 class="section-title">6 Built-in JSON-LD Types</h2>
-    <p style="color:var(--muted);max-width:520px;margin:0.5rem auto 0;font-size:0.95rem">Schema is auto-generated per page from your CSV columns — no shortcodes or coding required.</p>
+    <h2 class="section-title">6 BUILT-IN JSON-LD TYPES</h2>
+    <p style="color:var(--muted);max-width:500px;margin:0 auto 3rem;font-size:0.88rem">Schema is auto-generated per page from your CSV columns — no shortcodes or coding required.</p>
   </div>
   <div class="schema-grid">
-    <div class="schema-card"><h4>📰 Article</h4><p>Auto-populated from post title, date, and author. No extra CSV columns needed.</p><div class="schema-cols"><span class="col-tag">auto</span></div></div>
-    <div class="schema-card"><h4>🏢 LocalBusiness</h4><p>Ideal for service/location pages. Requires address, phone, and city columns.</p><div class="schema-cols"><span class="col-tag">city</span><span class="col-tag">address</span><span class="col-tag">phone</span></div></div>
+    <div class="schema-card"><h4>📰 Article</h4><p>Auto-populated from post title, date, and author.</p><div class="schema-cols"><span class="col-tag">auto</span></div></div>
+    <div class="schema-card"><h4>🏢 LocalBusiness</h4><p>For service/location pages. Requires address, phone, and city columns.</p><div class="schema-cols"><span class="col-tag">city</span><span class="col-tag">address</span><span class="col-tag">phone</span></div></div>
     <div class="schema-card"><h4>🛍️ Product</h4><p>For eCommerce or comparison pages with product name and pricing data.</p><div class="schema-cols"><span class="col-tag">product_name</span><span class="col-tag">price</span></div></div>
-    <div class="schema-card"><h4>❓ FAQPage</h4><p>Generates FAQ rich results from Q&amp;A column pairs in your CSV.</p><div class="schema-cols"><span class="col-tag">faq_q1</span><span class="col-tag">faq_a1</span><span class="col-tag">faq_q2</span><span class="col-tag">faq_a2</span></div></div>
+    <div class="schema-card"><h4>❓ FAQPage</h4><p>Generates FAQ rich results from Q&amp;A column pairs in your CSV.</p><div class="schema-cols"><span class="col-tag">faq_q1</span><span class="col-tag">faq_a1</span></div></div>
     <div class="schema-card"><h4>🍞 BreadcrumbList</h4><p>Auto-generated from the URL structure of the generated page.</p><div class="schema-cols"><span class="col-tag">auto</span></div></div>
-    <div class="schema-card"><h4>💼 JobPosting</h4><p>For job listing pages. Requires job title, company, and location columns.</p><div class="schema-cols"><span class="col-tag">job_title</span><span class="col-tag">company</span><span class="col-tag">city</span></div></div>
+    <div class="schema-card"><h4>💼 JobPosting</h4><p>For job listing pages. Requires job title, company, and location.</p><div class="schema-cols"><span class="col-tag">job_title</span><span class="col-tag">company</span><span class="col-tag">city</span></div></div>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- GUIDE -->
+<div class="divider"></div>
 <section id="guide">
-  <div style="text-align:center;margin-bottom:3.5rem">
+  <div class="sec-header-center">
     <span class="section-label">Step-by-Step Guide</span>
-    <h2 class="section-title">From Zero to 1,000 Pages</h2>
-    <p style="color:var(--muted);max-width:480px;margin:0.5rem auto 0">Follow these 7 steps to launch your first programmatic SEO campaign.</p>
+    <h2 class="section-title">FROM ZERO TO 1,000 PAGES</h2>
+    <p style="color:var(--muted);max-width:460px;margin:0 auto 3rem;font-size:0.88rem">Follow these 7 steps to launch your first programmatic SEO campaign.</p>
   </div>
   <div class="guide-steps">
     <div class="guide-step">
       <div class="guide-step-num">1</div>
       <div>
         <h3>Install &amp; Activate the Plugin</h3>
-        <p>Download the zip from <a href="https://github.com/iam-knr/PSEO_PRO_knr" target="_blank" style="color:#cc4422">GitHub</a> and upload via <strong>WP Admin → Plugins → Add New → Upload Plugin</strong>. After activation, go to <strong>Settings → Permalinks → Save Changes</strong> to flush rewrite rules — this step is mandatory or all generated pages will return 404.</p>
+        <p>Download the zip from <a href="https://github.com/iam-knr/PSEO_PRO_knr" target="_blank" style="color:var(--green2)">GitHub</a> and upload via <strong style="color:var(--white)">WP Admin → Plugins → Add New → Upload Plugin</strong>. After activation, go to <strong style="color:var(--white)">Settings → Permalinks → Save Changes</strong> to flush rewrite rules.</p>
         <div class="tip-box"><strong>💡 WP-CLI:</strong> <code>wp plugin install pseo-pro-knr.zip --activate && wp rewrite flush</code></div>
       </div>
     </div>
     <div class="guide-step">
       <div class="guide-step-num">2</div>
       <div>
-        <h3>Prepare Your Data Source</h3>
-        <p>Create your dataset with column headers in row 1 — these become your <code>{{placeholder}}</code> names. Choose your source type:</p>
-        <ul>
-          <li><strong>CSV via URL</strong> — host a public .csv file and paste its direct link</li>
-          <li><strong>Google Sheet</strong> — share as "Anyone with link → Viewer", copy the Sheet ID from the URL (between <code>/d/</code> and <code>/edit</code>)</li>
-          <li><strong>JSON URL</strong> — point to any JSON array, specify dot-notation data path</li>
-          <li><strong>REST API</strong> — configure URL, pagination param, and optional Bearer token</li>
-        </ul>
-        <div class="tip-box"><strong>💡 Google Sheets export URL:</strong> <code>docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv&amp;gid=0</code></div>
+        <h3>Prepare Your CSV File</h3>
+        <p>Create your dataset with column headers in row 1 — these become your <code>{{placeholder}}</code> names. Save as .csv and upload directly in the plugin.</p>
+        <div class="warn-box"><strong>⚠️ Column names are case-sensitive.</strong> CSV column <code>City</code> and template <code>{{city}}</code> will NOT match. Always use lowercase column headers.</div>
       </div>
     </div>
     <div class="guide-step">
       <div class="guide-step-num">3</div>
       <div>
         <h3>Build Your Template Page</h3>
-        <p>Create a new WordPress page using Elementor, Divi, Gutenberg, or plain HTML. Write content using <code>{{column_name}}</code> placeholders wherever your data should appear.</p>
+        <p>Create a new WordPress page using Elementor, Gutenberg, or plain HTML. Write content using <code>{{column_name}}</code> placeholders wherever your data should appear.</p>
         <ul>
-          <li>Use <code>{{city}}</code> in H1 headings, paragraphs, and image alt text</li>
+          <li>Use <code>{{city}}</code> in H1 headings, paragraphs, image alt text</li>
           <li>Use <code>{{raw:description}}</code> for HTML-heavy content columns</li>
-          <li>Use <code>{Best|Top|Leading}</code> spintax for natural content variation</li>
-          <li>Use <code>[if:state=Karnataka]...[/if]</code> for region-specific content blocks</li>
+          <li>Use <code>{Best|Top|Leading}</code> spintax for content variation</li>
         </ul>
         <div class="tip-box"><strong>💡 Tip:</strong> Set the template page status to <strong>Draft</strong> — it's the master template, not a public page.</div>
       </div>
@@ -560,17 +664,13 @@
       <div class="guide-step-num">4</div>
       <div>
         <h3>Create a New PSEO Project</h3>
-        <p>Go to <strong>PSEO PRO → New Project</strong> in WP Admin. Fill in all settings:</p>
+        <p>Go to <strong style="color:var(--white)">PSEO PRO → New Project</strong> in WP Admin. Fill in all settings:</p>
         <ul>
-          <li><strong>Project Name</strong> — internal label only (not shown publicly)</li>
-          <li><strong>Generate as Post Type</strong> — Page, Post, or any custom post type</li>
-          <li><strong>Content Template</strong> — select the Draft page you built in Step 3</li>
-          <li><strong>Data Source</strong> — pick source type and enter URL / Sheet ID / API config</li>
-          <li><strong>URL Pattern</strong> — e.g. <code>{{service}}/{{city}}</code> → /plumbing/bangalore/</li>
-          <li><strong>SEO Title</strong> — e.g. <code>{{service}} in {{city}} — From ₹{{price}}</code></li>
-          <li><strong>Meta Description</strong> — 120–160 chars using placeholders</li>
-          <li><strong>Schema Type</strong> — choose one of the 6 built-in JSON-LD types</li>
-          <li><strong>Sync Interval</strong> — Manual / Hourly / Daily / Weekly</li>
+          <li><strong style="color:var(--white)">Content Template</strong> — select the Draft page from Step 3</li>
+          <li><strong style="color:var(--white)">URL Pattern</strong> — e.g. <code>{{service}}/{{city}}</code></li>
+          <li><strong style="color:var(--white)">SEO Title</strong> — e.g. <code>{{service}} in {{city}} | Brand</code></li>
+          <li><strong style="color:var(--white)">Meta Description</strong> — 120–160 chars using placeholders</li>
+          <li><strong style="color:var(--white)">Schema Type</strong> — choose from 6 built-in JSON-LD types</li>
         </ul>
       </div>
     </div>
@@ -578,19 +678,19 @@
       <div class="guide-step-num">5</div>
       <div>
         <h3>Preview Your Data First</h3>
-        <p>Before generating, always click <strong>👁 Preview Data</strong>. This fetches your source live and shows the first 5 rows, total row count, and all detected column names — so you can verify placeholder names match exactly (case-sensitive).</p>
-        <div class="warn-box"><strong>⚠️ Common mistake:</strong> CSV has column <code>City</code> (capital C) but template uses <code>{{city}}</code> (lowercase). Always preview first and fix mismatches before generating.</div>
+        <p>Before generating, click <strong style="color:var(--white)">👁 Preview Data</strong>. This fetches your CSV live and shows the first 5 rows, total row count, and all detected column names — so you can verify placeholder names match exactly.</p>
+        <div class="warn-box"><strong>⚠️ Always preview before generating.</strong> Fix column name mismatches here before hitting Generate.</div>
       </div>
     </div>
     <div class="guide-step">
       <div class="guide-step-num">6</div>
       <div>
         <h3>Generate Pages</h3>
-        <p>Click <strong>⚡ Generate Pages Now</strong>. PSEO PRO fetches all rows, applies the template, and creates or updates WordPress pages in bulk. For 10,000+ pages, use WP-CLI to bypass PHP timeout limits:</p>
+        <p>Click <strong style="color:var(--white)">⚡ Generate Pages Now</strong>. PSEO PRO fetches all rows, applies the template, and creates or updates WordPress pages in bulk. For 10,000+ pages, use WP-CLI:</p>
         <ul>
-          <li><code>wp pseo list</code> — view all projects and their numeric IDs</li>
-          <li><code>wp pseo generate --id=1</code> — generate project #1 from terminal</li>
-          <li><code>wp pseo generate --all --delete-orphans</code> — all projects + clean removed rows</li>
+          <li><code>wp pseo list</code> — view all projects</li>
+          <li><code>wp pseo generate --id=1</code> — generate project #1</li>
+          <li><code>wp pseo generate --all --delete-orphans</code> — all projects + clean orphans</li>
         </ul>
       </div>
     </div>
@@ -598,25 +698,19 @@
       <div class="guide-step-num">7</div>
       <div>
         <h3>Submit Sitemap to Google Search Console</h3>
-        <p>Your sitemap is automatically available at <code>https://yourdomain.com/pseo-sitemap.xml</code>. Go to <strong>Google Search Console → Sitemaps</strong> and submit it. Google will begin crawling and indexing all generated pages.</p>
-        <ul>
-          <li>Enable <strong>Auto-Sync</strong> to keep pages updated as your data source changes</li>
-          <li>Use <strong>Delete Orphans</strong> to remove pages when rows are deleted from data</li>
-          <li>Monitor indexing in GSC under Coverage → Valid pages</li>
-        </ul>
-        <div class="tip-box"><strong>💡 Pro Tip:</strong> Set Sync to Daily + Google Sheet as source. Update the sheet → PSEO PRO auto-regenerates overnight. Fully hands-free, zero manual work.</div>
+        <p>Your sitemap is at <code>https://yourdomain.com/pseo-sitemap.xml</code>. Go to <strong style="color:var(--white)">Google Search Console → Sitemaps</strong> and submit it.</p>
+        <div class="tip-box"><strong>💡 Pro Tip:</strong> Enable Auto-Sync (Daily). Update your CSV → PSEO PRO auto-regenerates changed pages overnight. Fully hands-free.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- REQUIREMENTS -->
+<div class="divider"></div>
 <section class="alt-bg">
-  <div style="text-align:center;margin-bottom:3rem">
+  <div class="sec-header-center">
     <span class="section-label">System Requirements</span>
-    <h2 class="section-title">What You Need</h2>
+    <h2 class="section-title">WHAT YOU NEED</h2>
   </div>
   <div class="req-grid">
     <div class="req-card"><span class="req-icon">🌐</span><h4>WordPress</h4><div class="req-min">Minimum: 5.5+</div><div class="req-rec">Recommended: 6.0+</div></div>
@@ -630,7 +724,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-logo">PSEO PRO by KNR</span>
+  <span class="footer-logo">PSEO_PRO:KNR</span>
   <p class="footer-sub">Open-source Programmatic SEO plugin for WordPress. Free forever. GPL-2.0.</p>
   <div class="footer-links">
     <a href="#what">About</a>
@@ -642,7 +736,7 @@
     <a href="https://linkedin.com/in/iamknr" target="_blank">LinkedIn</a>
   </div>
   <div class="footer-copy">
-    Built with ❤️ by <strong style="color:#cc4422">Kailas (KNR) Nath R</strong> · GPL-2.0-or-later · v2.0.1
+    Built with ❤️ by <strong><a href="https://linkedin.com/in/iamknr">Kailas (KNR) Nath R</a></strong> · GPL-2.0-or-later · v2.0.1
   </div>
 </footer>
 
