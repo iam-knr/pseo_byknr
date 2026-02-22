@@ -9,7 +9,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg:#0a0a0a; --bg2:#111111; --bg3:#181818; --border:#1e1e1e;
-    --accent:#8b0000; --accent2:#cc2200; --green:#22c55e; --red:#ef4444;
+    --accent:#8b0000; --accent2:#ffffff; --green:#22c55e; --red:#ef4444;
     --yellow:#eab308; --cyan:#06b6d4; --text:#e5e5e5; --muted:#777777; --white:#ffffff;
   }
   html { scroll-behavior: smooth; }
@@ -17,7 +17,7 @@
   ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
 
   nav { position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px; }
-  .nav-logo { font-weight:800;font-size:1.15rem;background:linear-gradient(135deg,#cc2200,#ff4422);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  .nav-logo { font-weight:800;font-size:1.15rem;background:linear-gradient(135deg,#ffffff,#ff4422);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
   .nav-links { display:flex;gap:2rem;list-style:none; }
   .nav-links a { color:var(--muted);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s; }
   .nav-links a:hover { color:var(--white); }
@@ -28,10 +28,10 @@
   .hero { min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden; }
   .hero::before { content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(139,0,0,0.12) 0%,transparent 70%);pointer-events:none; }
   .hero-badge { display:inline-flex;align-items:center;gap:0.5rem;background:rgba(139,0,0,0.15);border:1px solid rgba(204,34,0,0.35);color:#ff6644;padding:0.35rem 1rem;border-radius:100px;font-size:0.8rem;font-weight:600;letter-spacing:0.5px;margin-bottom:1.5rem; }
-  .hero-badge span { width:7px;height:7px;background:#cc2200;border-radius:50%;display:inline-block;animation:pulse 2s infinite; }
+  .hero-badge span { width:7px;height:7px;background:#ffffff;border-radius:50%;display:inline-block;animation:pulse 2s infinite; }
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
   .hero h1 { font-size:clamp(2.5rem,6vw,5.2rem);font-weight:900;line-height:1.08;letter-spacing:-2.5px;color:var(--white);margin-bottom:1.2rem; }
-  .hero h1 span { background:linear-gradient(135deg,#cc2200 0%,#ff5533 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  .hero h1 span { background:linear-gradient(135deg,#ffffff 0%,#ff5533 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
   .hero-sub { font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:620px;margin:0 auto 2.5rem;line-height:1.7; }
   .hero-buttons { display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem; }
   .btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:0.9rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 0 30px rgba(139,0,0,0.4);transition:all 0.2s; }
@@ -139,7 +139,7 @@
 
   /* FOOTER */
   footer { background:var(--bg);border-top:1px solid var(--border);padding:4rem 5% 2rem;text-align:center; }
-  .footer-logo { font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#cc2200,#ff5533);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.75rem;display:block; }
+  .footer-logo { font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#ffffff,#ff5533);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.75rem;display:block; }
   .footer-sub { color:var(--muted);font-size:0.87rem;max-width:400px;margin:0 auto 2rem; }
   .footer-links { display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem; }
   .footer-links a { color:var(--muted);text-decoration:none;font-size:0.87rem;transition:color 0.2s; }
@@ -642,7 +642,7 @@
     <a href="https://linkedin.com/in/iamknr" target="_blank">LinkedIn</a>
   </div>
   <div class="footer-copy">
-    Built with ❤️ by <strong style="color:#cc4422">Kailas (KNR) Nath R</strong> — Sida Digital · GPL-2.0-or-later · v2.0.1
+    Built with ❤️ by <strong style="color:#cc4422">Kailas (KNR) Nath R</strong> · GPL-2.0-or-later · v2.0.1
   </div>
 </footer>
 
